@@ -11,7 +11,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- شريط أعلام الدول الأكاديمية -->
+<div class="flags-bar">
+    <div class="container flags-container">
+        <span>🌍 الشراكات والمحتوى الأكاديمي الدولي:</span>
+        <div class="flags-list">
+            <span class="flag-item">🇩🇿 الجزائر</span>
+            <span class="flag-item">🇸🇦 السعودية</span>
+            <span class="flag-item">🇬🇧 المملكة المتحدة</span>
+            <span class="flag-item">🇺🇸 الولايات المتحدة</span>
+            <span class="flag-item">🇫🇷 فرنسا</span>
+        </div>
+    </div>
+</div>
 
+<!-- لوحة خيارات الألوان السريعة بنقرة زر (تضاف داخل الهيدر أو القائمة) -->
+<div class="theme-picker">
+    <span style="font-size:0.8rem; font-weight:bold;">الألوان:</span>
+    <span class="theme-btn blue" onclick="document.documentElement.removeAttribute('data-theme')" title="الأزرق"></span>
+    <span class="theme-btn emerald" onclick="document.documentElement.setAttribute('data-theme', 'emerald')" title="الأخضر"></span>
+    <span class="theme-btn purple" onclick="document.documentElement.setAttribute('data-theme', 'purple')" title="الأرجواني"></span>
+    <span class="theme-btn dark" onclick="document.documentElement.setAttribute('data-theme', 'dark')" title="الداكن"></span>
+</div>
     <!-- الهيدر وشريط التنقل -->
     <header class="main-header">
         <div class="container navbar">
