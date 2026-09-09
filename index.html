@@ -4,35 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة منارة المعرفة | الأكاديمية الشاملة</title>
-    <!-- خطوط جوجل العالمية (Cairo & Amiri) -->
+    <!-- خطوط جوجل -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Amiri:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- شريط أعلام الدول الأكاديمية -->
-<div class="flags-bar">
-    <div class="container flags-container">
-        <span>🌍 الشراكات والمحتوى الأكاديمي الدولي:</span>
-        <div class="flags-list">
-            <span class="flag-item">🇩🇿 الجزائر</span>
-            <span class="flag-item">🇸🇦 السعودية</span>
-            <span class="flag-item">🇬🇧 المملكة المتحدة</span>
-            <span class="flag-item">🇺🇸 الولايات المتحدة</span>
-            <span class="flag-item">🇫🇷 فرنسا</span>
+
+    <!-- شريط أعلام الدول الأكاديمية -->
+    <div class="flags-bar">
+        <div class="container flags-container">
+            <span>🌍 الشراكات والمحتوى الأكاديمي الدولي:</span>
+            <div class="flags-list">
+                <span class="flag-item">🇩🇿 الجزائر</span>
+                <span class="flag-item">🇸🇦 السعودية</span>
+                <span class="flag-item">🇬🇧 المملكة المتحدة</span>
+                <span class="flag-item">🇺🇸 الولايات المتحدة</span>
+                <span class="flag-item">🇫🇷 فرنسا</span>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- لوحة خيارات الألوان السريعة بنقرة زر (تضاف داخل الهيدر أو القائمة) -->
-<div class="theme-picker">
-    <span style="font-size:0.8rem; font-weight:bold;">الألوان:</span>
-    <span class="theme-btn blue" onclick="document.documentElement.removeAttribute('data-theme')" title="الأزرق"></span>
-    <span class="theme-btn emerald" onclick="document.documentElement.setAttribute('data-theme', 'emerald')" title="الأخضر"></span>
-    <span class="theme-btn purple" onclick="document.documentElement.setAttribute('data-theme', 'purple')" title="الأرجواني"></span>
-    <span class="theme-btn dark" onclick="document.documentElement.setAttribute('data-theme', 'dark')" title="الداكن"></span>
-</div>
     <!-- الهيدر وشريط التنقل -->
     <header class="main-header">
         <div class="container navbar">
@@ -44,8 +37,17 @@
                 <a href="#features" class="active">المميزات</a>
                 <a href="#domains">المجالات</a>
                 <a href="#articles">المقالات والدروس</a>
-                <a href="#customizer">مركز التحكم</a>
             </nav>
+            
+            <!-- أزرار تغيير الألوان بنقرة زر -->
+            <div class="theme-picker">
+                <span style="font-size:0.8rem; font-weight:bold;">الألوان:</span>
+                <button class="theme-btn blue" onclick="changeTheme('default')" title="الأزرق الأكاديمي"></button>
+                <button class="theme-btn emerald" onclick="changeTheme('emerald')" title="الأخضر الزمردي"></button>
+                <button class="theme-btn purple" onclick="changeTheme('purple')" title="الأرجواني الملكي"></button>
+                <button class="theme-btn dark" onclick="changeTheme('dark')" title="الوضع الداكن"></button>
+            </div>
+
             <div class="header-actions">
                 <button class="btn btn-outline">تسجيل الدخول</button>
                 <button class="btn btn-primary">ابدأ التعلم مجاناً</button>
@@ -59,11 +61,10 @@
             <div class="hero-badge">🎓 الأكاديمية الشاملة للجيل القادم</div>
             <h1 class="hero-title">تعلم بلا حدود، وتحكم بكل تفصيلة في رحلتك التعليمية</h1>
             <p class="hero-subtitle">
-                منصة تعليمية متكاملة تجمع بين الشمولية الأكاديمية وسهولة الاستخدام الفائقة. اختر مجالك المفضّل، وخصّص واجهتك بما يناسب أسلوبك في التعلم.
+                منصة تعليمية متكاملة تجمع بين الشمولية الأكاديمية وسهولة الاستخدام الفائقة. اختر مجالك المفضّل، وخصّص واجهتك بنقرة زر واحدة.
             </p>
             <div class="hero-cta">
                 <a href="#domains" class="btn btn-primary btn-lg">استكشف المجالات</a>
-                <a href="#customizer" class="btn btn-secondary btn-lg">مركز التحكم بالألوان</a>
             </div>
             <div class="hero-stats">
                 <div class="stat-item">
@@ -130,65 +131,6 @@
         </div>
     </section>
 
-    <!-- قسم المقالات الأكاديمية (Articles) -->
-    <section id="articles" class="section articles-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">مقالات ودروس مختارة</h2>
-                <p class="section-subtitle">محتوى علمي وإنساني منظم بأسلوب قراءة سلس ومرن</p>
-            </div>
-            <div class="grid grid-2">
-                <article class="card article-card">
-                    <span class="badge">هندسة وتكنولوجيا</span>
-                    <h3 class="article-title">مقدمة في التحليل العددي وطرق الخوارزميات المتقدمة</h3>
-                    <p class="article-excerpt">
-                        نستعرض في هذا المقال خوارزمية التنصيف (Dichotomie) وحل المصفوفات باستخدام طريقة غاوس، وكيفية تطبيقها برمجياً لرفع كفاءة الحسابات.
-                    </p>
-                    <div class="article-meta">
-                        <span>⏱️ وقت القراءة: 6 دقائق</span>
-                        <span>✍️ د. ياسر الأدريسي</span>
-                    </div>
-                </article>
-
-                <article class="card article-card">
-                    <span class="badge">الفكر والهوية</span>
-                    <h3 class="article-title">تأثير الهوية البصرية والجماليات على الاستيعاب الأكاديمي</h3>
-                    <p class="article-excerpt">
-                        بحث يناقش كيف تؤثر البساطة (Minimalism) والخطوط المنظمة على رفع التركيز وتقليل الإجهاد البصري أثناء التعلم الرقمي.
-                    </p>
-                    <div class="article-meta">
-                        <span>⏱️ وقت القراءة: 8 دقائق</span>
-                        <span>✍️ الأستاذ عبد الرحمن</span>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- قسم تجربة التحكم (Customizer Showcase) -->
-    <section id="customizer" class="section customizer-section">
-        <div class="container">
-            <div class="customizer-box">
-                <h2>🎛️ مرونة التعديل والتحكم الكامل</h2>
-                <p>تستند هذه المنصة على متغيرات CSS بسيطة وموحدة في أعلى ملف التنسيق، مما يتيح لك تغيير هوية الموقع بأكملها خلال ثوانٍ معدودة:</p>
-                <div class="customizer-grid">
-                    <div class="custom-item">
-                        <strong>🎨 اللون الرئيسي:</strong>
-                        <code>--primary-color: #2563eb;</code>
-                    </div>
-                    <div class="custom-item">
-                        <strong>✒️ خط العناوين:</strong>
-                        <code>--font-heading: 'Amiri', serif;</code>
-                    </div>
-                    <div class="custom-item">
-                        <strong>📐 انحناء الزوايا:</strong>
-                        <code>--border-radius: 12px;</code>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- الفوتر -->
     <footer class="main-footer">
         <div class="container">
@@ -196,5 +138,15 @@
         </div>
     </footer>
 
+    <!-- سكربت تغيير الثيم بنقرة زر واحدة فوراً -->
+    <script>
+        function changeTheme(themeName) {
+            if (themeName === 'default') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', themeName);
+            }
+        }
+    </script>
 </body>
 </html>
