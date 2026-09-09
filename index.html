@@ -4,15 +4,258 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة منارة المعرفة | الأكاديمية الشاملة</title>
-    <!-- خطوط جوجل -->
+    <!-- خطوط جوجل العالمية -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Amiri:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. متغيرات النظام الرئيسية (CSS Variables)
+           ========================================================================== */
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #0f172a;
+            --accent-color: #f59e0b;
+            
+            --bg-main: #f8fafc;
+            --bg-card: rgba(255, 255, 255, 0.94);
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            
+            --font-base: 'Cairo', system-ui, -apple-system, sans-serif;
+            --border-radius: 12px;
+            --transition-speed: 0.3s;
+            --box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --container-width: 1200px;
+        }
+
+        /* ==========================================================================
+           2. الخلفية المزخرفة بالرموز الأكاديمية
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-base);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.7;
+            direction: rtl;
+            text-align: right;
+            position: relative;
+            
+            /* خلفية ناعمة من النقاط والزخارف */
+            background-image: 
+                radial-gradient(var(--primary-color) 0.8px, transparent 0.8px), 
+                radial-gradient(var(--primary-color) 0.8px, var(--bg-main) 0.8px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+            background-attachment: fixed;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        /* طبقة الزخرفة الرمزية الشفافة خلف المحتوى */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.05;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="30" font-size="20">✨</text><text x="60" y="80" font-size="18">🎓</text><text x="60" y="30" font-size="18">⚛️</text><text x="10" y="80" font-size="18">📚</text></svg>');
+            background-repeat: repeat;
+            background-size: 130px 130px;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==========================================================================
+           3. شريط الأعلام الدولية
+           ========================================================================== */
+        .flags-bar {
+            background-color: var(--secondary-color);
+            color: #ffffff;
+            padding: 8px 0;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color var(--transition-speed);
+        }
+
+        .flags-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .flags-list {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .flag-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* ==========================================================================
+           4. الهيدر وأزرار الألوان بنقرة زر
+           ========================================================================== */
+        .main-header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            transition: background-color var(--transition-speed);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 75px;
+        }
+
+        .brand-logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+        }
+
+        .brand-logo span { color: var(--primary-color); }
+
+        .theme-picker {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(0, 0, 0, 0.04);
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            transition: transform var(--transition-speed);
+        }
+
+        .theme-btn:hover { transform: scale(1.2); }
+        .theme-btn.blue { background-color: #2563eb; }
+        .theme-btn.emerald { background-color: #059669; }
+        .theme-btn.purple { background-color: #7c3aed; }
+        .theme-btn.dark { background-color: #0f172a; }
+
+        /* ==========================================================================
+           5. العناصر العامة والبطاقات
+           ========================================================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            font-family: var(--font-base);
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            text-decoration: none;
+        }
+
+        .btn-primary { background-color: var(--primary-color); color: #ffffff; }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        .hero-section {
+            padding: 80px 0 50px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid {
+            display: grid;
+            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            margin-top: 40px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            backdrop-filter: blur(8px);
+            transition: transform var(--transition-speed);
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        .card-icon { font-size: 2rem; margin-bottom: 15px; }
+        .card h3 { color: var(--secondary-color); margin-bottom: 10px; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        .main-footer {
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            padding: 25px 0;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; height: auto; padding: 15px 0; gap: 15px; }
+            .flags-container { justify-content: center; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- شريط أعلام الدول الأكاديمية -->
+    <!-- شريط الأعلام -->
     <div class="flags-bar">
         <div class="container flags-container">
             <span>🌍 الشراكات والمحتوى الأكاديمي الدولي:</span>
@@ -26,107 +269,53 @@
         </div>
     </div>
 
-    <!-- الهيدر وشريط التنقل -->
+    <!-- الهيدر والتحكم بالألوان -->
     <header class="main-header">
         <div class="container navbar">
             <div class="brand-logo">
-                <span class="logo-icon">✨</span>
-                <span class="logo-text">منارة <span>المعرفة</span></span>
+                ✨ منارة <span>المعرفة</span>
             </div>
-            <nav class="nav-links">
-                <a href="#features" class="active">المميزات</a>
-                <a href="#domains">المجالات</a>
-                <a href="#articles">المقالات والدروس</a>
-            </nav>
             
             <!-- أزرار تغيير الألوان بنقرة زر -->
             <div class="theme-picker">
-                <span style="font-size:0.8rem; font-weight:bold;">الألوان:</span>
-                <button class="theme-btn blue" onclick="changeTheme('default')" title="الأزرق الأكاديمي"></button>
-                <button class="theme-btn emerald" onclick="changeTheme('emerald')" title="الأخضر الزمردي"></button>
-                <button class="theme-btn purple" onclick="changeTheme('purple')" title="الأرجواني الملكي"></button>
-                <button class="theme-btn dark" onclick="changeTheme('dark')" title="الوضع الداكن"></button>
+                <span style="font-size:0.85rem; font-weight:bold;">اختر اللون:</span>
+                <button class="theme-btn blue" onclick="applyTheme('#2563eb', '#0f172a', '#f8fafc', 'rgba(255, 255, 255, 0.94)', '#334155')" title="الأزرق"></button>
+                <button class="theme-btn emerald" onclick="applyTheme('#059669', '#064e3b', '#f0fdf4', 'rgba(255, 255, 255, 0.94)', '#334155')" title="الأخضر"></button>
+                <button class="theme-btn purple" onclick="applyTheme('#7c3aed', '#2e1065', '#faf5ff', 'rgba(255, 255, 255, 0.94)', '#334155')" title="الأرجواني"></button>
+                <button class="theme-btn dark" onclick="applyTheme('#38bdf8', '#f8fafc', '#0f172a', 'rgba(30, 41, 59, 0.92)', '#e2e8f0')" title="الداكن"></button>
             </div>
 
-            <div class="header-actions">
-                <button class="btn btn-outline">تسجيل الدخول</button>
-                <button class="btn btn-primary">ابدأ التعلم مجاناً</button>
-            </div>
+            <a href="#" class="btn btn-primary">ابدأ التعلم</a>
         </div>
     </header>
 
-    <!-- واجهة الترحيب (Hero Section) -->
+    <!-- الواجهة الرئيسية -->
     <section class="hero-section">
-        <div class="container hero-container">
-            <div class="hero-badge">🎓 الأكاديمية الشاملة للجيل القادم</div>
-            <h1 class="hero-title">تعلم بلا حدود، وتحكم بكل تفصيلة في رحلتك التعليمية</h1>
+        <div class="container">
+            <h1 class="hero-title">منصة تعليمية متكاملة وسهلة التحكم</h1>
             <p class="hero-subtitle">
-                منصة تعليمية متكاملة تجمع بين الشمولية الأكاديمية وسهولة الاستخدام الفائقة. اختر مجالك المفضّل، وخصّص واجهتك بنقرة زر واحدة.
+                اكتشف المحتوى الأكاديمي في مختلف المجالات، وخصّص واجهتك البصرية بنقرة زر واحدة تناسب ذوقك.
             </p>
-            <div class="hero-cta">
-                <a href="#domains" class="btn btn-primary btn-lg">استكشف المجالات</a>
-            </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">+50</span>
-                    <span class="stat-label">مسار تعليمي</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">+100k</span>
-                    <span class="stat-label">طالب ومستفيد</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">قابلية التخصيص</span>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- شبكة المجالات المتعددة (Domains) -->
-    <section id="domains" class="section domains-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">المجالات التعليمية المتعددة</h2>
-                <p class="section-subtitle">اختر التخصص الذي يسهم في بناء مستقبلك الأكاديمي والمهني</p>
+    <!-- المجالات التعليمية -->
+    <section class="container">
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3>الهندسة والتكنولوجيا</h3>
+                <p>محتوى متقدم في الهندسة الكهربائية والبرمجيات بأحدث الوسائل التعليمية.</p>
             </div>
-            <div class="grid grid-3">
-                <div class="card domain-card">
-                    <div class="card-icon">⚡</div>
-                    <h3>الهندسة والتكنولوجيا</h3>
-                    <p>دورة شاملة في الهندسة الكهربائية، الذكاء الاصطناعي، والأنظمة المدمجة بأسلوب بصرى ومبسط.</p>
-                    <a href="#" class="card-link">استكشف المسار ←</a>
-                </div>
-                <div class="card domain-card">
-                    <div class="card-icon">🧬</div>
-                    <h3>العلوم الطبيعية والتطبيقية</h3>
-                    <p>محتوى أكاديمي دقيق في الرياضيات، الفيزياء النظرية، التحليل العددي، والبيولوجيا.</p>
-                    <a href="#" class="card-link">استكشف المسار ←</a>
-                </div>
-                <div class="card domain-card">
-                    <div class="card-icon">📚</div>
-                    <h3>العلوم الإنسانية والفلسفة</h3>
-                    <p>قراءات وتحليلات عميقة في تاريخ الفكر البشري، علم الاجتماع، الأدب، والسياسة الدولية.</p>
-                    <a href="#" class="card-link">استكشف المسار ←</a>
-                </div>
-                <div class="card domain-card">
-                    <div class="card-icon">💼</div>
-                    <h3>الأعمال والتسويق الرقمي</h3>
-                    <p>إدارة المشاريع، إستراتيجيات التسويق الحديثة، والمهارات القيادية لسوق العمل.</p>
-                    <a href="#" class="card-link">استكشف المسار ←</a>
-                </div>
-                <div class="card domain-card">
-                    <div class="card-icon">🎨</div>
-                    <h3>التصميم والهوية البصرية</h3>
-                    <p>تعلم تصميم الواجهات UX/UI، الهويات البصرية المبتكرة، والفن الرقمي التفاعلي.</p>
-                    <a href="#" class="card-link">استكشف المسار ←</a>
-                </div>
-                <div class="card domain-card">
-                    <div class="card-icon">🌐</div>
-                    <h3>اللغات والتواصل الدولي</h3>
-                    <p>برامج متقدمة لإتقان اللغات الحية وتطوير مهني لمهارات التواصل والأكاديمية.</p>
-                    <a href="#" class="card-link">استكشف المسار ←</a>
-                </div>
+            <div class="card">
+                <div class="card-icon">🧬</div>
+                <h3>العلوم التطبيقية</h3>
+                <p>دروس ومقالات دقيقة في الرياضيات والتحليل العددي والفيزياء.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📚</div>
+                <h3>العلوم الإنسانية</h3>
+                <p>قراءات وبحوث مطولة في الفكر والتاريخ والتواصل الدولي.</p>
             </div>
         </div>
     </section>
@@ -138,14 +327,15 @@
         </div>
     </footer>
 
-    <!-- سكربت تغيير الثيم بنقرة زر واحدة فوراً -->
+    <!-- سكربت تغيير الألوان المباشر -->
     <script>
-        function changeTheme(themeName) {
-            if (themeName === 'default') {
-                document.documentElement.removeAttribute('data-theme');
-            } else {
-                document.documentElement.setAttribute('data-theme', themeName);
-            }
+        function applyTheme(primary, secondary, bgMain, bgCard, textMain) {
+            const root = document.documentElement;
+            root.style.setProperty('--primary-color', primary);
+            root.style.setProperty('--secondary-color', secondary);
+            root.style.setProperty('--bg-main', bgMain);
+            root.style.setProperty('--bg-card', bgCard);
+            root.style.setProperty('--text-main', textMain);
         }
     </script>
 </body>
